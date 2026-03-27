@@ -6,7 +6,7 @@ export interface ReputationRequest {
   product: string;
   competitors?: string[];
   timeRange?: "7d" | "30d" | "90d" | "1y" | "all";
-  sources?: ("reddit" | "hn" | "youtube")[];
+  sources?: ("reddit" | "hn" | "youtube" | "amazon")[];
 }
 
 export interface DimensionScore {
@@ -18,7 +18,7 @@ export interface DimensionScore {
 }
 
 export interface SourceSummary {
-  source: "reddit" | "hn" | "youtube";
+  source: "reddit" | "hn" | "youtube" | "amazon";
   postsAnalyzed: number;
   avgSentiment: number; // -1 to 1
   topThemes: string[];
@@ -48,7 +48,7 @@ export interface ReputationReport {
 
 // Raw data from sources
 export interface RawPost {
-  source: "reddit" | "hn" | "youtube";
+  source: "reddit" | "hn" | "youtube" | "amazon";
   title: string;
   body: string;
   author: string;

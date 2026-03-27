@@ -10,6 +10,7 @@ import { Router, Request, Response } from "express";
 import { searchHN } from "../services/hn.js";
 import { searchReddit } from "../services/reddit.js";
 import { searchYouTube } from "../services/youtube.js";
+import { searchAmazon } from "../services/amazon.js";
 import { analyzeReputation } from "../services/llm.js";
 import {
   AnalyzeSchema,
