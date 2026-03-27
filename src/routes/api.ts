@@ -54,6 +54,9 @@ apiRouter.post("/analyze", async (req: Request, res: Response) => {
     if (sources.includes("youtube")) {
       fetchPromises.push(searchYouTube(product, timeRange));
     }
+    if (sources.includes("amazon")) {
+      fetchPromises.push(searchAmazon(product, timeRange, category));
+    }
 
     const results = await Promise.allSettled(fetchPromises);
     const allPosts: RawPost[] = results
@@ -123,6 +126,9 @@ apiRouter.post("/compare", async (req: Request, res: Response) => {
       }
       if (sources.includes("youtube")) {
         fetchPromises.push(searchYouTube(product, timeRange));
+    }
+    if (sources.includes("amazon")) {
+      fetchPromises.push(searchAmazon(product, timeRange, category));
       }
 
       const results = await Promise.allSettled(fetchPromises);
@@ -209,6 +215,9 @@ apiRouter.post("/monitor", async (req: Request, res: Response) => {
     }
     if (sources.includes("hn")) {
       fetchPromises.push(searchHN(product, "7d"));
+    }
+    if (sources.includes("amazon")) {
+      fetchPromises.push(searchAmazon(product, "7d", "default"));
     }
 
     const results = await Promise.allSettled(fetchPromises);
