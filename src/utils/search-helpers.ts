@@ -95,6 +95,9 @@ export function buildQueryVariants(
  * Uses simple heuristics — not perfect, but catches the worst noise.
  */
 export function isRelevantPost(post: RawPost, product: string): boolean {
+  // Amazon reviews are fetched by ASIN search, already highly relevant
+  if ((post as any).source === "amazon") return true;
+
   const productLower = product.toLowerCase();
   const titleLower = post.title.toLowerCase();
   const bodyLower = post.body.toLowerCase();
@@ -115,6 +118,9 @@ export function isRelevantPost(post: RawPost, product: string): boolean {
     // At least one qualifying term must also appear (e.g., "AI", "IDE", "browser")
     const qualifyingTerms = disambigTerms.filter((t) => t !== primaryWord);
     const hasQualifier = qualifyingTerms.some((term) => combined.includes(term));
+
+    // Amazon reviews are already product-specific, always relevant
+    if ((post as any).source === "amazon") return true;
 
     // Or the post is from a tech/programming subreddit (good signal)
     const techSignals = [
