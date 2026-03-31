@@ -17,6 +17,7 @@ import { paymentMiddleware, x402ResourceServer } from "@x402/express";
 import { registerExactEvmScheme } from "@x402/evm/exact/server";
 import { HTTPFacilitatorClient } from "@x402/core/server";
 import { bazaarResourceServerExtension, declareDiscoveryExtension } from "@x402/extensions/bazaar";
+import { createFacilitatorConfig } from "@coinbase/x402";
 import { apiRouter } from "./routes/api.js";
 
 const app = express();
@@ -34,7 +35,8 @@ const PRICE_COMPARE = process.env.PRICE_COMPARE || "$0.08";
 const PRICE_MONITOR = process.env.PRICE_MONITOR || "$0.03";
 
 // ─── x402 Payment Middleware ────────────────
-const facilitatorClient = new HTTPFacilitatorClient({ url: FACILITATOR_URL });
+const cdpConfig = createFacilitatorConfig(process.env.CDP_API_KEY_ID, process.env.CDP_API_KEY_SECRET);
+const facilitatorClient = new HTTPFacilitatorClient(cdpConfig);
 const resourceServer = new x402ResourceServer(facilitatorClient);
 registerExactEvmScheme(resourceServer);
 resourceServer.registerExtension(bazaarResourceServerExtension);
