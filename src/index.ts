@@ -35,8 +35,7 @@ const PRICE_COMPARE = process.env.PRICE_COMPARE || "$0.08";
 const PRICE_MONITOR = process.env.PRICE_MONITOR || "$0.03";
 
 // ─── x402 Payment Middleware ────────────────
-const secret = (process.env.CDP_API_KEY_SECRET || "").replace(/\\n/g, "\n");
-const cdpConfig = createFacilitatorConfig(process.env.CDP_API_KEY_ID, secret);
+const cdpConfig = { url: "https://facilitator.xpay.sh" };
 const facilitatorClient = new HTTPFacilitatorClient(cdpConfig);
 const resourceServer = new x402ResourceServer(facilitatorClient);
 registerExactEvmScheme(resourceServer);
